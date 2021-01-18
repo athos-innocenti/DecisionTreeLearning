@@ -1,15 +1,15 @@
 # Alberi di decisione con dati mancanti
-Nella seguente repository viene implementato l'algoritmo di apprendimento per alberi di decisione con l'aggiunta di una strategia per la gestione dei valori mancanti degli attributi nel trainingset basata sull'assegnamento di una probabilità per ogni valore di un attributo in base ai valori noti negli esempi.
+Nella seguente repository viene implementato l'algoritmo di apprendimento per alberi di decisione con l'aggiunta di una strategia per la gestione dei valori mancanti degli attributi nel training set basata sull'assegnamento di una probabilità per ogni valore di un attributo in base ai valori noti negli esempi.
 
 ## Come usare il codice
-Per poter utilizzare il codice è necessario scaricare i tre datasets utilizzati dai link specificati qui di seguito ed inserirli nella directory [*datasets*](https://github.com/athos-innocenti/DecisionTree/tree/master/datasets) dove sono già presenti tre files *.name* in cui sono riportati i nomi degli attributi di ognuno dei tre datasets.
+Per poter utilizzare il codice è necessario scaricare i tre datasets utilizzati dai link specificati qui di seguito ed inserirli nella directory [*datasets*](https://github.com/athos-innocenti/DecisionTree/tree/master/datasets) dove sono già presenti i files *.name* in cui sono riportati i nomi degli attributi di ognuno dei datasets.
 
 In tutti e tre i casi si dovrà scaricare il file con estensione *.data* per poter ottenere il dataset d'interesse.
 
 I tre datasets usati sono:
-1. **Car Evaluation**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Car+Evaluation).
+1. **Burst Header Packet (BHP) flooding attack on Optical Burst Switching (OBS) Network**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Burst+Header+Packet+%28BHP%29+flooding+attack+on+Optical+Burst+Switching+%28OBS%29+Network). Sarà sufficiente motificare l'estensione del file da .arff in .data (assicurarsi che il file sia nominato nel seguente modo: OBS-Network-DataSet_2_Aug27.data)
 2. **Tic-Tac-Toe Endgame**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Tic-Tac-Toe+Endgame).
-3. **Chess(King-Rook vs. King-Pawn)**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Chess+%28King-Rook+vs.+King-Pawn%29).
+3. **Contraceptive Method Choice)**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Contraceptive+Method+Choice).
 
 ## Descrizione del codice
 I file che compongono il progetto sono:
@@ -36,10 +36,6 @@ I file che compongono il progetto sono:
    * _information_gain_: calcola l'information gain per ciascun attributo disponibile su un dato insieme di esempi
    * _get_max_gain_: fornisce il massimo valore di information gain per poter identificare l'attributo con information più grande
    * _dt_learning_: implementazione dell'algoritmo di apprendimento per alberi di decisione
-5. _**tree_pruning.py**_: classe composta dai metodi necessari per poter implementare il _pruning_ dell'albero di decisione appena creato così da poter risolvere il problema dell'_overfitting_.
-   * _pruning_: richiama ricorsive il metodo _chi_squared_pruning_ fino al completamento del pruning
-   * _chi_squared_pruning_ e _delta_: implementano il chi squared pruning dell'albero di decisione
-   * _leaf_descendants_: verifica se un nodo dell'albero ha come figli delle foglie
 
 ## Linguaggio e librerie
 Il progetto è stato relizzato utilizzando *Python 3.8* come linguaggio di programmazione. Sono inoltre state utilizzate alcune librerie esterne:
@@ -47,5 +43,6 @@ Il progetto è stato relizzato utilizzando *Python 3.8* come linguaggio di progr
 * **termcolor**: per la stampa a colori sulla console. [[download](https://pypi.org/project/termcolor/)]
 
 Sono state utilizzate anche le seguenti librerie di Python:
-* **random**: per generare numeri casuali, riordinare casualmente una lista e sceglierne casualmente degli elementi
+* **random**: per generare numeri casuali, rimuovere casualmente e uniformemente con una data probabilità alcuni valori dal training set e per scegliere casualmente degli elementi da una lista
 * **math**: per eseguire calcoli matematici
+* **copy**: per eseguire la deepcopy di alcune liste nel main
