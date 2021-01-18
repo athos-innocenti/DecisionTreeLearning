@@ -30,7 +30,7 @@ I file che compongono il progetto sono:
    * _get_values_: restituisce i valori di un certo attributo
    * _get_weighted_occur_: restituisce le occorrenze pesate per ogni singolo valore di un determinato attributo per un certo insieme di esempi
    * _check_missing_: verifica se nell'insieme di esempi ricevuto in ingresso mancano dei valori
-   * _heigh_update_: aggiorna il valore dell'attributo height che tiene traccia della profondità dell'albero di decisione
+   * _height_update_: aggiorna il valore dell'attributo height che tiene traccia della profondità dell'albero di decisione
    * _get_prob_: calcola la probabilità di un certo attributo in relazione ai suoi valori osservati in un certo insieme di esempi
    * _get_entropy_: calcola l'entropia
    * _information_gain_: calcola l'information gain per ciascun attributo disponibile su un dato insieme di esempi fornendo poi l'attributo con l'information gain più grande
