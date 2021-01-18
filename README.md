@@ -13,28 +13,27 @@ I tre datasets usati sono:
 
 ## Descrizione del codice
 I file che compongono il progetto sono:
-1. _**main.py**_: gestisce l'esecuzione dell'intero codice. Si occupa anche della creazione dei grafici e della divisione del dataset in trainingset, validationset e testset.
+1. _**main.py**_: gestisce l'esecuzione dell'intero codice. Si occupa anche della creazione dei grafici e della divisione del dataset in training set, validation set e test set.
 2. _**performances.py**_: contiene i metodi per il calcolo dell'accuratezza:
-   * _average_: calcola la media sulle accuratezze ricavate da ciascuna interazione per ogni dataset
-   * _test_: per ogni elemento del testset verifica se il valore del target ricavato tramite l'albero di decisone coincide o meno con il suo valore effettivo
-   * _accuracy_: calcola l'accuratezza dell'albero di decisione in funzione del numero di valori del target correttamente predetto
+   * _test_: per ogni elemento del test set verifica se il valore del target ricavato tramite l'albero di decisone coincide o meno con il suo valore effettivo
+   * _accuracy_: calcola l'accuratezza dell'albero di decisione in funzione del numero di valori del target correttamente predetti
 3. _**dataset.py**_: contiene i metodi per la gestione del dataset e per la rimozione di alcuni valori dal training set:
    * _remove_data_: rimuove in modo casuale e uniforme con una data probabilità alcuni valori dagli esempi
    * _get_dts_name_: restituisce il nome del dataset in esame per poterlo stampare sulla console
-   * _get_attributes_: restituisce il nome degli attributi e del target che compongono il dataset
-   * _get_examples_: permette di estrapolare dal file *.data* tutti gli esempi che compongono il dataset
+   * _get_attributes_: restituisce il nome degli attributi che compongono il dataset
+   * _get_examples_: permette di estrapolare dal file *.data* tutti gli esempi che compongono il dataset con la relativa classificazione memorizzata a parte
    * _get_attributes_values_: restituisce i valori di ciascun attributo
    * get_target_values_: resistuisce i valori assunti dal target
 4. _**dt_learning.py**_: classe che implementa l'algoritmo di apprendimento per alberi di decisione con la gestione dei valori mancanti:
-   * _same_classification_: verifica se gli esempi forniti in ingresso al metodo hanno tutti la stessa classificazione (stesso valore del target)
-   * _get_classification_: restituisce il valore del target nell'esempio ricevuto in ingresso
+   * _same_classification_: verifica se gli esempi forniti in ingresso al metodo hanno tutti la stessa classificazione (i.e. stesso valore del target)
    * _plurality_value_: fornisce il valore più frequente del target entro un certo insieme di esempi
    * _get_values_: restituisce i valori di un certo attributo
-   * _get_occurrence_: restituisce le occorrenze per ogni singolo valore di un determinato attributo per un certo insieme di esempi
+   * _get_weighted_occur_: restituisce le occorrenze pesate per ogni singolo valore di un determinato attributo per un certo insieme di esempi
    * _check_missing_: verifica se nell'insieme di esempi ricevuto in ingresso mancano dei valori
+   * _heigh_update_: aggiorna il valore dell'attributo height che tiene traccia della profondità dell'albero di decisione
+   * _get_prob_: calcola la probabilità di un certo attributo in relazione ai suoi valori osservati in un certo insieme di esempi
    * _get_entropy_: calcola l'entropia
-   * _information_gain_: calcola l'information gain per ciascun attributo disponibile su un dato insieme di esempi
-   * _get_max_gain_: fornisce il massimo valore di information gain per poter identificare l'attributo con information più grande
+   * _information_gain_: calcola l'information gain per ciascun attributo disponibile su un dato insieme di esempi fornendo poi l'attributo con l'information gain più grande
    * _dt_learning_: implementazione dell'algoritmo di apprendimento per alberi di decisione
 
 ## Linguaggio e librerie
