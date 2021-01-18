@@ -1,0 +1,1 @@
+Node,Utilised_Bandwith_Rate,Packet_Drop_Rate,Full_Bandwidth,Average_Delay_Time_Per_Sec,Percentage_Of_Lost_Pcaket_Rate,Percentage_Of_Lost_Byte_Rate,Packet_Received_Rate,Used_Bandwidth,Lost_Bandwidth,Packet Size_Byte,Packet_Transmitted,Packet_Received,Packet_lost,Transmitted_Byte,Received_Byte,10-Run-AVG-Drop-Rate,10-Run-AVG-Bandwith-Use,10-Run-Delay,Node Status,Flood Status,Class
