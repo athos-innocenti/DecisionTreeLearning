@@ -33,7 +33,7 @@ I file che compongono il progetto sono:
    * _height_update_: aggiorna il valore dell'attributo height che tiene traccia della profondità dell'albero di decisione
    * _get_prob_: calcola la probabilità di un certo attributo in relazione ai suoi valori osservati in un certo insieme di esempi
    * _get_entropy_: calcola l'entropia
-   * _information_gain_: calcola l'information gain per ciascun attributo disponibile su un dato insieme di esempi fornendo poi l'attributo con l'information gain più grande
+   * _gain_: calcola il gain per ciascun attributo disponibile su un dato insieme di esempi fornendo poi l'attributo con l'information gain più grande
    * _dt_learning_: implementazione dell'algoritmo di apprendimento per alberi di decisione
 
 ## Linguaggio e librerie
