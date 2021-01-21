@@ -15,6 +15,13 @@ class DecisionTree:
         self.target_position = target_position
         self.height = 0
 
+    def get_max_height(self):
+        return self.height
+
+    def height_update(self, h):
+        if h > self.height:
+            self.height = h
+
     def same_classification(self, examples):
         classification = examples[0][self.target_position]
         for ex in examples:
@@ -22,10 +29,12 @@ class DecisionTree:
                 return False
         return True
 
-    def plurality_value(self, examples, weights):
-        target_values = self.get_values(examples, self.target_position)
-        target_values_occur = self.get_weighted_occur(weights, target_values, examples, self.target_position)
-        return target_values[target_values_occur.index(max(target_values_occur))]
+    @staticmethod
+    def check_missing(examples, index):
+        for ex in examples:
+            if ex[index] == '':
+                return True
+        return False
 
     @staticmethod
     def get_values(examples, index):
@@ -35,6 +44,11 @@ class DecisionTree:
             if value not in attr_values and value != '':
                 attr_values.append(value)
         return attr_values
+
+    def plurality_value(self, examples, weights):
+        target_values = self.get_values(examples, self.target_position)
+        target_values_occur = self.get_weighted_occur(weights, target_values, examples, self.target_position)
+        return target_values[target_values_occur.index(max(target_values_occur))]
 
     @staticmethod
     def get_weighted_occur(weights, attr_values, examples, index):
@@ -48,64 +62,39 @@ class DecisionTree:
         return weights_per_val
 
     @staticmethod
-    def check_missing(examples, index):
-        for ex in examples:
-            if ex[index] == '':
-                return True
-        return False
-
-    def get_max_height(self):
-        return self.height
-
-    def height_update(self, h):
-        if h > self.height:
-            self.height = h
-
-    @staticmethod
-    def get_prob(known_attr_values, weighted_occur, known_weights, attribute_values):
-        attr_probability = []
-        total_weight = sum(known_weights)
-        for val in attribute_values:
-            if val in known_attr_values:
-                attr_probability.append(weighted_occur[known_attr_values.index(val)] / total_weight)
-            else:
-                attr_probability.append(0)
-        return attr_probability
-
-    @staticmethod
     def get_entropy(values, values_occurrence, total_weight):
         entropy = 0
         for i in range(len(values)):
-            value_occur = values_occurrence[i]
-            if value_occur != 0:
-                p_i = value_occur / total_weight
+            if values_occurrence[i] != 0:
+                p_i = values_occurrence[i] / total_weight
                 entropy -= p_i * math.log(p_i, 2)
         return entropy
 
-    def information_gain(self, entropy_s, examples, attributes_values, weights):  # CHECK
+    def gain(self, entropy_s, examples, attributes_values, weights):
         gain_per_attribute, prob = [], []
         s = sum(weights)
         for attr in self.attributes_indexes:
-            if self.check_missing(examples, attr) and s != 0:
+            missing = self.check_missing(examples, attr)
+            if missing:
                 known_examples, known_weights = [], []
                 for ex in examples:
                     if ex[attr] != '':
                         known_examples.append(ex)
                         known_weights.append(weights[examples.index(ex)])
-                known_attr_values = self.get_values(known_examples, attr)
-                weighted_occur = self.get_weighted_occur(known_weights, known_attr_values, known_examples, attr)
-                prob.append(self.get_prob(known_attr_values, weighted_occur, known_weights, attributes_values[attr]))
+                weighted_occur = self.get_weighted_occur(known_weights, attributes_values[attr], known_examples, attr)
+                total_weight = sum(known_weights)
+                if total_weight != 0:
+                    prob.append([weighted_occur[attributes_values[attr].index(val)] / total_weight for val in
+                                 attributes_values[attr]])
+                else:
+                    prob.append([1 for _ in attributes_values[attr]])
             else:
                 prob.append([1 for _ in attributes_values[attr]])
             remainder = 0
             for v in range(len(attributes_values[attr])):
                 examples_per_v, weights_per_v = [], []
                 for ex in examples:
-                    val = ex[attr]
-                    if val == attributes_values[attr][v]:
-                        examples_per_v.append(ex)
-                        weights_per_v.append(weights[examples.index(ex)])
-                    elif val == '':
+                    if ex[attr] == attributes_values[attr][v] or ex[attr] == '':
                         examples_per_v.append(ex)
                         weights_per_v.append(weights[examples.index(ex)] * prob[self.attributes_indexes.index(attr)][v])
                 if len(examples_per_v) != 0 and s != 0:
@@ -147,17 +136,13 @@ class DecisionTree:
             target_values = self.get_values(examples, self.target_position)
             target_values_occur = self.get_weighted_occur(weights, target_values, examples, self.target_position)
             entropy_s = self.get_entropy(target_values, target_values_occur, sum(weights))
-            index, prob = self.information_gain(entropy_s, examples, attributes_values, weights)
+            index, prob = self.gain(entropy_s, examples, attributes_values, weights)
             root.value = attributes[index]
             for value in attributes_values[index]:
                 root.branch.append(value)
                 exs, wgt = [], []
                 for ex in examples:
-                    val = ex[index]
-                    if val == value:
-                        exs.append(ex)
-                        wgt.append(weights[examples.index(ex)])
-                    elif val == '':
+                    if ex[index] == value or ex[index] == '':
                         exs.append(ex)
                         wgt.append(weights[examples.index(ex)] * prob[attributes_values[index].index(value)])
                 if len(self.attributes_indexes) > 0 and index in self.attributes_indexes:

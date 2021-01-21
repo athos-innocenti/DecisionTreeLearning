@@ -1,5 +1,6 @@
 from dt_learning import DecisionTree
 
+from termcolor import colored
 import random
 
 
@@ -12,7 +13,9 @@ def remove_data(examples, attributes_indexes, p):
 
 
 def get_dts_name(dataset):
-    return dataset.replace(".data", "").upper()
+    dts_name = dataset.replace(".data", "").upper()
+    print("\n", colored("-" * 25, "red"), colored(dts_name, "red"), colored("DATASET", "red"), colored("-" * 25, "red"))
+    return dts_name
 
 
 def get_attributes(dataset):
@@ -21,9 +24,11 @@ def get_attributes(dataset):
     f.close()
     if attributes[0] != "Class":  # example's classification is named Class in .name file
         target_pos = len(attributes) - 1
+        print(colored("\nAttributes' name:\n", "green"), attributes[:target_pos])
         return attributes[:target_pos], target_pos  # classification is at the end
     else:
         target_pos = 0
+        print(colored("\nAttributes' name:\n", "green"), attributes[target_pos + 1:])
         return attributes[target_pos + 1:], target_pos  # classification is at the beginning
 
 
@@ -44,7 +49,9 @@ def get_examples(dataset, target_position):
 
 
 def get_attributes_values(examples, attributes_indexes):
-    return [DecisionTree.get_values(examples, attr) for attr in attributes_indexes]
+    attributes_val = [DecisionTree.get_values(examples, attr) for attr in attributes_indexes]
+    print(colored("Attributes values:\n", "green"), attributes_val)
+    return attributes_val
 
 
 def get_target_values(classification):
@@ -52,4 +59,5 @@ def get_target_values(classification):
     for c in classification:
         if c not in values:
             values.append(c)
+    print(colored("Target values:\n", "green"), values, "\n")
     return values
