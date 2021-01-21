@@ -7,9 +7,7 @@ Per poter utilizzare il codice è necessario scaricare i tre datasets utilizzati
 In tutti e tre i casi si dovrà scaricare il file con estensione *.data* per poter ottenere il dataset d'interesse.
 
 I tre datasets usati sono:
-1. **Burst Header Packet (BHP) flooding attack on Optical Burst Switching (OBS) Network**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Burst+Header+Packet+%28BHP%29+flooding+attack+on+Optical+Burst+Switching+%28OBS%29+Network). Sarà sufficiente motificare l'estensione del file da .arff in .data (assicurarsi che il file sia nominato nel seguente modo: OBS-Network-DataSet_2_Aug27.data)
-2. **Tic-Tac-Toe Endgame**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Tic-Tac-Toe+Endgame).
-3. **Contraceptive Method Choice)**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Contraceptive+Method+Choice).
+1. **Tic-Tac-Toe Endgame**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Tic-Tac-Toe+Endgame).
 
 ## Descrizione del codice
 I file che compongono il progetto sono:
