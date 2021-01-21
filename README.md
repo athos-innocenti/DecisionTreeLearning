@@ -23,7 +23,7 @@ I file che compongono il progetto sono:
    * _get_attributes_: restituisce il nome degli attributi che compongono il dataset
    * _get_examples_: permette di estrapolare dal file *.data* tutti gli esempi che compongono il dataset con la relativa classificazione memorizzata a parte
    * _get_attributes_values_: restituisce i valori di ciascun attributo
-   * get_target_values_: resistuisce i valori assunti dal target
+   * _get_target_values_: resistuisce i valori assunti dal target
 4. _**dt_learning.py**_: classe che implementa l'algoritmo di apprendimento per alberi di decisione con la gestione dei valori mancanti:
    * _same_classification_: verifica se gli esempi forniti in ingresso al metodo hanno tutti la stessa classificazione (i.e. stesso valore del target)
    * _plurality_value_: fornisce il valore più frequente del target entro un certo insieme di esempi
@@ -45,3 +45,4 @@ Sono state utilizzate anche le seguenti librerie di Python:
 * **random**: per generare numeri casuali, rimuovere casualmente e uniformemente con una data probabilità alcuni valori dal training set e per scegliere casualmente degli elementi da una lista
 * **math**: per eseguire calcoli matematici
 * **copy**: per eseguire la deepcopy di alcune liste nel main
+* **statistics**: per calcolare la moda delle altezze per cui si ha la maggior accuratezza
