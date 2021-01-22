@@ -39,7 +39,10 @@ def get_examples(dataset, target_position):
     classification = []
     for i in range(len(examples)):
         examples[i] = examples[i].strip()  # return a copy of the string where whitespaces are removed
-        examples[i] = examples[i].split(',')  # return a list of words of the string where , is used as separator
+        if dataset == 'monks.data':
+            examples[i] = examples[i].split(' ')
+        else:
+            examples[i] = examples[i].split(',')  # return a list of words of the string where , is used as separator
         classification.append(examples[i][target_position])
         if target_position != 0:
             examples[i] = examples[i][:target_position]  # classification is at the end

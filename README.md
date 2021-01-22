@@ -8,8 +8,8 @@ In tutti e tre i casi si dovrà scaricare il file con estensione *.data* per pot
 
 I tre datasets usati sono:
 1. **Tic-Tac-Toe Endgame**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Tic-Tac-Toe+Endgame).
-2. **Balance Scale**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Balance+Scale).
-2. **Chess (King-Rook vs. King-Pawn)**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Chess+%28King-Rook+vs.+King-Pawn%29).
+2. **MONK's Problems**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/MONK%27s+Problems). Scaricare tutti i file aventi estensione .train ed unirli in unico file chiamato monco.data.
+3. **Balance Scale**: reperibile a questo [link](http://archive.ics.uci.edu/ml/datasets/Balance+Scale).
 
 ## Descrizione del codice
 I file che compongono il progetto sono:

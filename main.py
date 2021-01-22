@@ -9,7 +9,7 @@ import copy
 import statistics
 
 probability = [0, 0.1, 0.2, 0.5]
-datasets = ['tic-tac-toe.data', 'balance-scale.data', 'kr-vs-kp.data']
+datasets = ['tic-tac-toe.data', 'monks.data', 'balance-scale.data']
 
 for dts in datasets:
     dts_name = dataset.get_dts_name(dts)

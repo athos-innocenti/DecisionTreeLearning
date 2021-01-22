@@ -62,6 +62,20 @@ class DecisionTree:
         return weights_per_val
 
     @staticmethod
+    def get_prob(known_attr_values, weighted_occur, known_weights, attribute_values):
+        total_weight = sum(known_weights)
+        if total_weight != 0:
+            attr_probability = []
+            for val in attribute_values:
+                if val in known_attr_values:
+                    attr_probability.append(weighted_occur[known_attr_values.index(val)] / total_weight)
+                else:
+                    attr_probability.append(0)
+        else:
+            attr_probability = [1 for _ in attribute_values]
+        return attr_probability
+
+    @staticmethod
     def get_entropy(values, values_occurrence, total_weight):
         entropy = 0
         for i in range(len(values)):
@@ -81,13 +95,9 @@ class DecisionTree:
                     if ex[attr] != '':
                         known_examples.append(ex)
                         known_weights.append(weights[examples.index(ex)])
+                known_attr_values = self.get_values(known_examples, attr)
                 weighted_occur = self.get_weighted_occur(known_weights, attributes_values[attr], known_examples, attr)
-                total_weight = sum(known_weights)
-                if total_weight != 0:
-                    prob.append([weighted_occur[attributes_values[attr].index(val)] / total_weight for val in
-                                 attributes_values[attr]])
-                else:
-                    prob.append([1 for _ in attributes_values[attr]])
+                prob.append(self.get_prob(known_attr_values, weighted_occur, known_weights, attributes_values[attr]))
             else:
                 prob.append([1 for _ in attributes_values[attr]])
             remainder = 0
