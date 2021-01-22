@@ -63,16 +63,13 @@ class DecisionTree:
 
     @staticmethod
     def get_prob(known_attr_values, weighted_occur, known_weights, attribute_values):
+        attr_probability = []
         total_weight = sum(known_weights)
-        if total_weight != 0:
-            attr_probability = []
-            for val in attribute_values:
-                if val in known_attr_values:
-                    attr_probability.append(weighted_occur[known_attr_values.index(val)] / total_weight)
-                else:
-                    attr_probability.append(0)
-        else:
-            attr_probability = [1 for _ in attribute_values]
+        for val in attribute_values:
+            if val in known_attr_values:
+                attr_probability.append(weighted_occur[known_attr_values.index(val)] / total_weight)
+            else:
+                attr_probability.append(0)
         return attr_probability
 
     @staticmethod
@@ -88,15 +85,14 @@ class DecisionTree:
         gain_per_attribute, prob = [], []
         s = sum(weights)
         for attr in self.attributes_indexes:
-            missing = self.check_missing(examples, attr)
-            if missing:
+            if self.check_missing(examples, attr) and s != 0:
                 known_examples, known_weights = [], []
                 for ex in examples:
                     if ex[attr] != '':
                         known_examples.append(ex)
                         known_weights.append(weights[examples.index(ex)])
                 known_attr_values = self.get_values(known_examples, attr)
-                weighted_occur = self.get_weighted_occur(known_weights, attributes_values[attr], known_examples, attr)
+                weighted_occur = self.get_weighted_occur(known_weights, known_attr_values, known_examples, attr)
                 prob.append(self.get_prob(known_attr_values, weighted_occur, known_weights, attributes_values[attr]))
             else:
                 prob.append([1 for _ in attributes_values[attr]])
@@ -104,7 +100,10 @@ class DecisionTree:
             for v in range(len(attributes_values[attr])):
                 examples_per_v, weights_per_v = [], []
                 for ex in examples:
-                    if ex[attr] == attributes_values[attr][v] or ex[attr] == '':
+                    if ex[attr] == attributes_values[attr][v]:
+                        examples_per_v.append(ex)
+                        weights_per_v.append(weights[examples.index(ex)])
+                    elif ex[attr] == '':
                         examples_per_v.append(ex)
                         weights_per_v.append(weights[examples.index(ex)] * prob[self.attributes_indexes.index(attr)][v])
                 if len(examples_per_v) != 0 and s != 0:
@@ -152,7 +151,10 @@ class DecisionTree:
                 root.branch.append(value)
                 exs, wgt = [], []
                 for ex in examples:
-                    if ex[index] == value or ex[index] == '':
+                    if ex[index] == value:
+                        exs.append(ex)
+                        wgt.append(weights[examples.index(ex)])
+                    elif ex[index] == '':
                         exs.append(ex)
                         wgt.append(weights[examples.index(ex)] * prob[attributes_values[index].index(value)])
                 if len(self.attributes_indexes) > 0 and index in self.attributes_indexes:
